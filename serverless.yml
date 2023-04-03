@@ -1,4 +1,4 @@
-service: my-store-app
+service: readthebook-client
 
 frameworkVersion: "3"
 
@@ -16,10 +16,13 @@ plugins:
   # How to build your own plugins: https://www.serverless.com/framework/docs/providers/aws/guide/plugins#service-local-plugin
   - serverless-single-page-app-plugin
   - serverless-s3-cleaner
+  # AWS Single Sign On (SSO) Support. https://www.npmjs.com/package/serverless-better-credentials
+  # Serverless doesn't support SSO deployment natively and this plugin is a suggested workaround. Details here https://github.com/serverless/serverless/issues/7567
+  - serverless-better-credentials
 
 custom:
   client:
-    bucketName: my-store-app
+    bucketName: readthebook-client-production
     distributionFolder: dist
   s3BucketName: ${self:custom.client.bucketName}
 
