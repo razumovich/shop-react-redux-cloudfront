@@ -56,6 +56,18 @@ export function useUpsertAvailableProduct() {
   );
 }
 
+// TODO: Remove useCreateProduct if it's not relevant
+// Adding creating functionality. Maybe in future modules we'll use useUpsertAvailableProduct for creating products. Need to figure it out
+export function useCreateProduct() {
+  return useMutation((values: AvailableProduct) =>
+    axios.post<AvailableProduct>(`${API_PATHS.product}/products`, values, {
+      headers: {
+        Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+      },
+    })
+  );
+}
+
 export function useDeleteAvailableProduct() {
   return useMutation((id: string) =>
     axios.delete(`${API_PATHS.bff}/product/${id}`, {
