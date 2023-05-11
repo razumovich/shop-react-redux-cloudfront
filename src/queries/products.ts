@@ -9,7 +9,7 @@ export function useAvailableProducts() {
     "available-products",
     async () => {
       const res = await axios.get<AvailableProduct[]>(
-        `${API_PATHS.bff}/product/available`
+        `${API_PATHS.product}/products`
       );
       return res.data;
     }
@@ -29,7 +29,7 @@ export function useAvailableProduct(id?: string) {
     ["product", { id }],
     async () => {
       const res = await axios.get<AvailableProduct>(
-        `${API_PATHS.bff}/product/${id}`
+        `${API_PATHS.product}/products/${id}`
       );
       return res.data;
     },
@@ -49,6 +49,18 @@ export function useRemoveProductCache() {
 export function useUpsertAvailableProduct() {
   return useMutation((values: AvailableProduct) =>
     axios.put<AvailableProduct>(`${API_PATHS.bff}/product`, values, {
+      headers: {
+        Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+      },
+    })
+  );
+}
+
+// TODO: Remove useCreateProduct if it's not relevant
+// Adding creating functionality. Maybe in future modules we'll use useUpsertAvailableProduct for creating products. Need to figure it out
+export function useCreateProduct() {
+  return useMutation((values: AvailableProduct) =>
+    axios.post<AvailableProduct>(`${API_PATHS.product}/products`, values, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
       },
