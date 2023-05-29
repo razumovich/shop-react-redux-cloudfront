@@ -58,8 +58,6 @@ export function useUpsertCart() {
         ]
     }
 
-    debugger
-
     return axios.put<CartItem[]>(`${API_PATHS.cart}/api/profile/cart`, updatedValues, {
       headers: {
         Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
